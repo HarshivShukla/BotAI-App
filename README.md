@@ -1,7 +1,3 @@
-Here’s a `README.md` file for your GitHub repository, describing your app and its functionality, based on the files you’ve shared.
-
----
-
 # **Bot AI Application**
 
 This is a **React-based Chat Application** that allows users to interact with a bot, get responses to pre-configured questions, and provide feedback on the bot's responses. It also supports switching between light and dark themes.
