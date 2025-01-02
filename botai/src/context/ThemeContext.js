@@ -1,15 +1,20 @@
 import React, { createContext, useState } from "react";
 
+// Create a context for theme
 export const ThemeContext = createContext();
 
 export const ThemeProvider = ({ children }) => {
+  // Default theme is light mode
   const [darkMode, setDarkMode] = useState(false);
 
-  const toggleTheme = () => setDarkMode((prev) => !prev);
+  // Toggle between light and dark mode
+  const toggleTheme = () => {
+    setDarkMode((prevMode) => !prevMode); // Toggle the theme
+  };
 
   return (
     <ThemeContext.Provider value={{ darkMode, toggleTheme }}>
-      {children}
+      {children} {/* Provide the theme context to children */}
     </ThemeContext.Provider>
   );
 };

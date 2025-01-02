@@ -1,5 +1,4 @@
 import React, { useState, useContext } from "react";
-import sampleData from "./data/sampleData.json"; // Import the sample data JSON file
 import ChatWindow from "./components/ChatWindow";
 import FeedbackModal from "./components/FeedbackModal";
 import ThemeToggle from "./components/ThemeToggle";
@@ -15,41 +14,32 @@ const App = () => {
   const [currentConversation, setCurrentConversation] = useState([]);
   const [input, setInput] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
-  const [view, setView] = useState("cards"); // Default view is cards
+  const [view, setView] = useState("cards");
 
   const handleEndConversation = () => {
     if (currentConversation.length > 0) {
       setConversations((prev) => [...prev, currentConversation]);
       setCurrentConversation([]);
-      setModalOpen(true); // Open feedback modal when conversation ends
+      setModalOpen(true);
       setView("cards");
     }
   };
 
   const handleFeedbackSubmit = (feedback) => {
     console.log("Feedback submitted:", feedback);
-    setModalOpen(false); // Close modal after submitting feedback
+    setModalOpen(false);
   };
 
   const handleAsk = () => {
     if (input.trim()) {
       const userMessage = { type: "user", text: input };
-
-      // Check if question matches any from sampleData.json
-      const matchedData = sampleData.find(
-        (data) => data.question.toLowerCase() === input.toLowerCase()
-      );
-
-      const aiResponse = matchedData
-        ? matchedData.response
-        : "I'm sorry, I don't understand that question. Could you rephrase?";
-
+      const aiResponse = generateResponse(input);
       setCurrentConversation((prev) => [
         ...prev,
         userMessage,
         { type: "ai", text: aiResponse },
       ]);
-      setInput(""); // Clear the input after submitting
+      setInput("");
     }
   };
 
@@ -59,10 +49,11 @@ const App = () => {
       { type: "user", text: query },
       { type: "ai", text: aiResponse },
     ]);
-    setView("chat"); // Switch to chat view after card click
+    setView("chat");
   };
 
   const generateResponse = (message) => {
+    // Your existing logic here or modify it
     switch (message.toLowerCase()) {
       case "hi, what is the weather":
         return "The weather is sunny and warm.";
@@ -80,7 +71,6 @@ const App = () => {
   return (
     <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
       <div className={`app-container ${darkMode ? "dark" : "light"}`}>
-        {/* Sidebar */}
         <div className="sidebar">
           <h2>Bot AI</h2>
           <button
@@ -100,10 +90,8 @@ const App = () => {
           </button>
         </div>
 
-        {/* Main Content */}
         <div className="main-content">
           <ThemeToggle toggleTheme={toggleTheme} darkMode={darkMode} />
-
           {view === "cards" && (
             <>
               <h1 className="title">How Can I Help You Today?</h1>
@@ -124,7 +112,6 @@ const App = () => {
                   </button>
                 ))}
               </div>
-              {/* Display text box if the user wants to ask another question */}
               <div className="footer">
                 <input
                   type="text"
@@ -146,7 +133,9 @@ const App = () => {
                 {currentConversation.map((message, index) => (
                   <div
                     key={index}
-                    className={`message ${message.type === "user" ? "user" : "ai"}`}
+                    className={`message ${
+                      message.type === "user" ? "user" : "ai"
+                    }`}
                   >
                     {message.text}
                   </div>
@@ -172,13 +161,33 @@ const App = () => {
           )}
 
           {view === "history" && (
-            <ConversationList
-              conversations={conversations}
-              onSelectConversation={(index) => {
-                setCurrentConversation(conversations[index]);
-                setView("chat");
-              }}
-            />
+            <div className="conversation-history">
+              <h1>Conversation History</h1>
+              {conversations.map((conversation, index) => (
+                <div
+                  key={index}
+                  className="conversation-item"
+                  onClick={() => {
+                    setCurrentConversation(conversation);
+                    setView("chat");
+                  }}
+                >
+                  <h3>Conversation {index + 1}</h3>
+                  {conversation.map((message, msgIndex) => (
+                    <div key={msgIndex} className="conversation-message">
+                      <strong>{message.type === "user" ? "You: " : "Bot: "}</strong>
+                      {message.text}
+                    </div>
+                  ))}
+                  {/* Display feedback if provided */}
+                  {conversation.feedback && (
+                    <div className="feedback">
+                      <strong>Feedback:</strong> {conversation.feedback}
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
           )}
         </div>
 
