@@ -198,3 +198,85 @@
 .MuiTextField-root {
   margin-top: 20px;
 }
+/* Styles for Past Conversations */
+.conversation-list {
+  padding: 20px;
+  background-color: #f4f4f4;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.conversation-item {
+  padding: 10px;
+  background-color: #fff;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.conversation-item:hover {
+  background-color: #e0e0e0;
+}
+
+.conversation-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+
+.conversation-header h4 {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.conversation-preview p {
+  font-size: 14px;
+  color: #555;
+  margin: 0;
+}
+
+.message {
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.message.user {
+  background-color: #6c63ff;
+  color: white;
+  text-align: right;
+  border-radius: 10px;
+}
+
+.message.ai {
+  background-color: #f0f0f0;
+  color: #333;
+  text-align: left;
+  border-radius: 10px;
+}
+
+.footer {
+  margin-top: 10px;
+}
+
+.footer .chat-input {
+  padding: 10px;
+  margin-right: 10px;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.footer .ask-btn,
+.footer .end-btn {
+  padding: 10px;
+  background-color: #6c63ff;
+  color: white;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
+
+.footer .ask-btn:hover,
+.footer .end-btn:hover {
+  background-color: #5848cc;
+}
