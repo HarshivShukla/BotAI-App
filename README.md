@@ -132,5 +132,3 @@ Once you open the app, you'll see a clean interface with a sidebar. Here's what 
 - **Chat**: After selecting a question or typing your own, you'll see a conversation.
 - **Feedback Modal**: After each conversation, provide feedback for the bot.
 - **Past Conversations**: View your previous conversations at any time.
-
-Let me know if you need any additional information or modifications!
