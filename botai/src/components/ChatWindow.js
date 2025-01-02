@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import FeedbackButtons from "./FeedbackButtons";
-import { sampleData } from "../data/sampleData";
+import sampleData from "../data/sampleData.json";
 
 const ChatWindow = ({ onConversationEnd }) => {
   const [messages, setMessages] = useState([]);
