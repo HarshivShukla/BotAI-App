@@ -1,4 +1,5 @@
 import React, { useState, useContext } from "react";
+import sampleData from "./data/sampleData.json"; // Import the sample data JSON file
 import ChatWindow from "./components/ChatWindow";
 import FeedbackModal from "./components/FeedbackModal";
 import ThemeToggle from "./components/ThemeToggle";
@@ -33,13 +34,22 @@ const App = () => {
   const handleAsk = () => {
     if (input.trim()) {
       const userMessage = { type: "user", text: input };
-      const aiResponse = generateResponse(input);
+
+      // Check if question matches any from sampleData.json
+      const matchedData = sampleData.find(
+        (data) => data.question.toLowerCase() === input.toLowerCase()
+      );
+
+      const aiResponse = matchedData
+        ? matchedData.response
+        : "I'm sorry, I don't understand that question. Could you rephrase?";
+
       setCurrentConversation((prev) => [
         ...prev,
         userMessage,
         { type: "ai", text: aiResponse },
       ]);
-      setInput("");
+      setInput(""); // Clear the input after submitting
     }
   };
 
@@ -114,6 +124,19 @@ const App = () => {
                   </button>
                 ))}
               </div>
+              {/* Display text box if the user wants to ask another question */}
+              <div className="footer">
+                <input
+                  type="text"
+                  className="chat-input"
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  placeholder="Type your question here..."
+                />
+                <button className="ask-btn" onClick={handleAsk}>
+                  Ask
+                </button>
+              </div>
             </>
           )}
 
@@ -130,7 +153,6 @@ const App = () => {
                 ))}
               </div>
 
-              {/* Text input box for further queries */}
               <div className="footer">
                 <input
                   type="text"
@@ -160,7 +182,6 @@ const App = () => {
           )}
         </div>
 
-        {/* Feedback Modal */}
         <FeedbackModal
           open={modalOpen}
           onClose={() => setModalOpen(false)}

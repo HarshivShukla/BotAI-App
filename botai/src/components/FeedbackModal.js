@@ -11,7 +11,7 @@ const FeedbackModal = ({ open, onClose, onSubmit }) => {
   };
 
   return (
-    <Modal open={open} onClose={onClose}>
+    <Modal open={open} onClose={onClose} className="feedback-modal">
       <Box className="modal-box">
         <h2>Provide Feedback</h2>
         <Rating
@@ -27,7 +27,9 @@ const FeedbackModal = ({ open, onClose, onSubmit }) => {
           value={comments}
           onChange={(e) => setComments(e.target.value)}
         />
-        <Button onClick={handleSubmit}>Submit</Button>
+        <Button onClick={handleSubmit} className="submit-btn">
+          Submit
+        </Button>
       </Box>
     </Modal>
   );
